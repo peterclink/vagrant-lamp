@@ -91,6 +91,10 @@ EXAMPLEVHOST=$(cat <<EOF
     DocumentRoot /var/www/example.com
     ErrorLog ${APACHE_LOG_DIR}/error.log
     CustomLog ${APACHE_LOG_DIR}/access.log combined
+    <Directory "/var/www/example.com">
+        AllowOverride All
+        Require all granted
+    </Directory>
 </VirtualHost>
 EOF
 )
