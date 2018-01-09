@@ -22,7 +22,7 @@ sudo apt-get install -y curl
 # install apache 2.5 and php 7.1
 # sudo apt-cache search php7.1
 sudo apt-get install -y apache2
-sudo apt-get -y --force-yes install php7.1-cli libapache2-mod-php7.1 php7.1 php7.1-common php7.1-dev php7.1-curl php7.1-mbstring php7.1-mcrypt php7.1-mysql php7.1-sqlite3 php7.1-opcache php-xdebug php-memcached php-memcache
+sudo apt-get -y --force-yes install php7.1-cli libapache2-mod-php7.1 php7.1 php7.1-common php7.1-dev php7.1-curl php7.1-mbstring php7.1-mcrypt php7.1-mysql php7.1-sqlite3 php7.1-opcache php-xdebug php-memcached php-memcache php7.1-gd
 
 # php -i | grep 'php.ini'
 sudo sed -i "s/error_reporting = .*/error_reporting = E_ALL/" /etc/php/7.1/apache2/php.ini

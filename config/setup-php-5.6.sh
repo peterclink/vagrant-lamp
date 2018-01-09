@@ -22,7 +22,7 @@ sudo apt-get install -y curl
 # install apache 2.5 and php 5.6
 # sudo apt-cache search php5.6
 sudo apt-get install -y apache2
-sudo apt-get install -y --force-yes php5.6-common php5.6-cli php5.6 libapache2-mod-php5.6 php-pear php5.6-mysql php-xdebug php5.6-curl php5.6-mbstring php5.6-mcrypt
+sudo apt-get install -y --force-yes php5.6-common php5.6-cli php5.6 libapache2-mod-php5.6 php-pear php5.6-mysql php-xdebug php5.6-curl php5.6-mbstring php5.6-mcrypt php5.6-gd
 
 # php -i | grep 'php.ini'
 sudo sed -i "s/error_reporting = .*/error_reporting = E_ALL/" /etc/php/5.6/apache2/php.ini
