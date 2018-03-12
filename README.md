@@ -29,21 +29,28 @@ $ git clone https://github.com/peterclink/vagrant-lamp.git
 Run the commands
 ```
 $ cd vagrant-lamp
-$ vagrant up lamp56
+$ vagrant up php56
 ```
 
 ### PHP 7.1
 Run the commands
 ```
 $ cd vagrant-lamp
-$ vagrant up lamp71
+$ vagrant up php71
+```
+
+### MySql
+Run the commands
+```
+$ cd vagrant-lamp
+$ vagrant up mysql
 ```
 
 Now you can access the `DocumentRoot` here http://192.168.33.10
 
 ## MySQL
 Externally the MySQL server is available at port 3306 as usual.
-* Host: 192.168.33.10
+* Host: 192.168.33.11
 * Username: root
 * Password: root
 
