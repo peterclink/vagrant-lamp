@@ -7,27 +7,42 @@
 # you're doing.
 Vagrant.configure("2") do |config|
   config.vm.box = "ubuntu/trusty64"
-  config.vm.network "forwarded_port", guest: 3306, host: 3306
-  config.vm.network "private_network", ip: "192.168.33.10"
-  config.vm.synced_folder "www", "/var/www"
+  config.vm.synced_folder "/Users/plink/Projects", "/var/www", owner: "www-data", group: "www-data"
   
-  config.vm.define "lamp56" do |lamp56|
-    lamp56.vm.hostname = "lamp56"
-    lamp56.vm.provision "shell", path: "config/setup-php-5.6.sh"
+  config.vm.define "php56" do |php56|
+    php56.vm.hostname = "php56"
+    php56.vm.provision "shell", path: "config/setup-php-5.6.sh"
+    php56.vm.network "private_network", ip: "192.168.33.10"
 
-    lamp56.vm.provider "virtualbox" do |v|
-      v.name = "lamp56"
-      v.customize ["modifyvm", :id, "--name", "lamp56"]
+    php56.vm.provider "virtualbox" do |v|
+      v.name = "php56"
+      v.gui = false
+      v.customize ["modifyvm", :id, "--name", "php56"]
     end
   end
 
-  config.vm.define "lamp71" do |lamp71|
-    lamp71.vm.hostname = "lamp71"
-    lamp71.vm.provision "shell", path: "config/setup-php-7.1.sh"
+  config.vm.define "php71" do |php71|
+    php71.vm.hostname = "php71"
+    php71.vm.provision "shell", path: "config/setup-php-7.1.sh"
+    php71.vm.network "private_network", ip: "192.168.33.10"
 
-    lamp71.vm.provider "virtualbox" do |v|
-      v.name = "lamp71"
-      v.customize ["modifyvm", :id, "--name", "lamp71"]
+    php71.vm.provider "virtualbox" do |v|
+      v.name = "php71"
+      v.gui = false
+      v.customize ["modifyvm", :id, "--name", "php71"]
+    end
+  end
+
+  config.vm.define "mysql" do |mysql|
+    mysql.vm.hostname = "mysql"
+    mysql.vm.provision "shell", path: "config/setup-mysql.sh"
+    mysql.vm.network "forwarded_port", guest: 3306, host: 3306
+    mysql.vm.network "private_network", ip: "192.168.33.11"
+
+    mysql.vm.provider "virtualbox" do |v|
+      v.name = "mysql"
+      v.gui = false
+      v.customize ["modifyvm", :id, "--name", "mysql"]
     end
   end
 end

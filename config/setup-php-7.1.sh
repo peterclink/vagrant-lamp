@@ -28,28 +28,6 @@ sudo apt-get -y --force-yes install php7.1-cli libapache2-mod-php7.1 php7.1 php7
 sudo sed -i "s/error_reporting = .*/error_reporting = E_ALL/" /etc/php/7.1/apache2/php.ini
 sudo sed -i "s/display_errors = .*/display_errors = On/" /etc/php/7.1/apache2/php.ini
 
-# install mysql and give password to installer
-sudo debconf-set-selections <<< "mysql-server mysql-server/root_password password $PASSWORD"
-sudo debconf-set-selections <<< "mysql-server mysql-server/root_password_again password $PASSWORD"
-sudo apt-get -y install mysql-client mysql-server
-
-# Allow root access from any host
-sudo sed -i "s/bind-address\s*=\s*127.0.0.1/bind-address = 0.0.0.0/" ${MYSQL_CONFIG_FILE}
-sudo sed -e '/skip-external-locking/ s/^#*/#/' -i ${MYSQL_CONFIG_FILE}
-echo "GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY '$PASSWORD' WITH GRANT OPTION" | sudo mysql -u root --password=$PASSWORD
-echo "GRANT PROXY ON ''@'' TO 'root'@'%' WITH GRANT OPTION" | sudo mysql -u root --password=$PASSWORD
-
-# install phpmyadmin and give password(s) to installer
-# for simplicity I'm using the same password for mysql and phpmyadmin
-# sudo debconf-set-selections <<< "phpmyadmin phpmyadmin/dbconfig-install boolean true"
-# sudo debconf-set-selections <<< "phpmyadmin phpmyadmin/app-password-confirm password $PASSWORD"
-# sudo debconf-set-selections <<< "phpmyadmin phpmyadmin/mysql/admin-pass password $PASSWORD"
-# sudo debconf-set-selections <<< "phpmyadmin phpmyadmin/mysql/app-pass password $PASSWORD"
-# sudo debconf-set-selections <<< "phpmyadmin phpmyadmin/reconfigure-webserver multiselect apache2"
-# sudo apt-get -y install phpmyadmin
-
-sudo service mysql restart
-
 # setup hosts file
 VHOST=$(cat <<EOF
 <VirtualHost *:80>
